@@ -1,0 +1,20 @@
+{
+  "replay_date": "2024-03-07",
+  "n_incidents_replayed": 45,
+  "n_units": 8,
+  "step_minutes": 15,
+  "bsl_total_pw_wait": 9571.5,
+  "opt_total_pw_wait": 5048.7,
+  "pw_saved": 4522.8,
+  "pct_improvement": 47.25,
+  "n_dispatched_opt": 24,
+  "n_dispatched_bsl": 25,
+  "high_prio_n": 10,
+  "median_minutes_sooner": 0.0,
+  "mean_minutes_sooner": 186.0,
+  "opt_wait_median_min": 13.5,
+  "bsl_wait_median_min": 14.1,
+  "leakage_check": "PASSED - 0 replay incidents in training set",
+  "split_note": "Random 80/20 row split (not temporal) - honestly disclosed",
+  "metric_note": "PW-delay only. No vehicle-hours or rupee conversion."
+}

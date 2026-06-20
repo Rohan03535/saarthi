@@ -1,0 +1,32 @@
+{
+  "n_units": 8,
+  "step_minutes": 30,
+  "avg_speed_kmph": 20.0,
+  "median_clearance_min": 48.5,
+  "total_steps": 7247,
+  "incidents_handled_opt": 3545,
+  "incidents_handled_bsl": 3478,
+  "opt_total_pw_wait": 685636.2,
+  "bsl_total_pw_wait": 1087854.9,
+  "pw_delay_saved": 402218.7,
+  "pct_improvement": 36.97,
+  "est_vehicle_hours_saved_DROPPED": "NOT REPORTED - score-to-vehicle mapping is unestablished; see note",
+  "headline_metric": "37.0% reduction in priority-weighted delay vs operationally realistic baseline",
+  "verification": {
+    "identical_incident_stream": true,
+    "same_n_units": 8,
+    "same_depot_positions": true,
+    "same_clearance_durations": true,
+    "only_dispatch_policy_differs": true,
+    "opt_policy": "priority_score / (travel_time_min + 1) maximised per free unit",
+    "bsl_policy": "nearest available unit to newest incident (no priority awareness)"
+  },
+  "assumptions": [
+    "Travel time = Haversine distance / 20.0 km/h (no routing API - deployment hook only)",
+    "Clearance duration = actual clearance_time_minutes if known, else 48.5 min median from Phase 1b",
+    "Baseline = nearest available unit to newest incident (operationally realistic, not random)",
+    "Priority-weighted delay = sum(priority_score x STEP_MINUTES) for unhandled active incidents per step",
+    "Vehicle-hours conversion DROPPED: priority score is dimensionless (0-10), not a vehicle count; 1 score-point != 1 vehicle/min",
+    "Defensible headline: 37% PW-delay reduction. Stated as relative improvement only."
+  ]
+}

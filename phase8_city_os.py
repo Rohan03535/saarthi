@@ -789,10 +789,9 @@ with tab3:
                         cv2.putText(display, "GRIDLOCK DETECTED", (10, 90),
                                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-                    # Display frame (resized to prevent websocket dropping on cloud)
-                    display_small = cv2.resize(display, (600, 450))
-                    frame_rgb = cv2.cvtColor(display_small, cv2.COLOR_BGR2RGB)
-                    frame_placeholder.image(frame_rgb, channels="RGB", use_container_width=True)
+                    # Convert frame to highly compressed JPEG bytes (fixes Streamlit Cloud buffering)
+                    _, buffer = cv2.imencode('.jpg', display, [int(cv2.IMWRITE_JPEG_QUALITY), 60])
+                    frame_placeholder.image(buffer.tobytes(), use_container_width=True)
 
                     # Update density gauge
                     gauge_cls = "gauge-green" if density < 0.6 else ("gauge-amber" if density < 0.85 else "gauge-red")
@@ -843,7 +842,7 @@ with tab3:
                         </div>
                         """, unsafe_allow_html=True)
 
-                    time.sleep(0.2)  # ~5 FPS display rate to prevent cloud websocket overload
+                    time.sleep(0.1)  # 10 FPS smooth playback
 
                 cap.release()
     else:

@@ -231,7 +231,7 @@ section[data-testid="stSidebar"] { background: #060a13; }
 """, unsafe_allow_html=True)
 
 # ── File Paths ────────────────────────────────────────────────────────────────
-BASE_DIR     = r"C:\Users\Rohan\Pictures\saarthi"
+BASE_DIR     = os.path.dirname(os.path.abspath(__file__))
 TRIAGE_PATH  = os.path.join(BASE_DIR, "triage_queue.parquet")
 ASSIGN_PATH  = os.path.join(BASE_DIR, "phase4_assignments.parquet")
 CASCADE_PATH = os.path.join(BASE_DIR, "phase5_cascade_snapshots.parquet")

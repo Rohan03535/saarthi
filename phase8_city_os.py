@@ -842,7 +842,7 @@ with tab3:
                         </div>
                         """, unsafe_allow_html=True)
 
-                    time.sleep(0.05)  # ~20 FPS display rate
+                    time.sleep(0.15)  # ~6 FPS display rate to prevent cloud websocket overload
 
                 cap.release()
     else:

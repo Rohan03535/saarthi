@@ -11,6 +11,7 @@ import streamlit as st
 import folium
 from folium import plugins as folium_plugins
 from streamlit_folium import st_folium, folium_static
+import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import cv2
@@ -511,7 +512,7 @@ with tab1:
                 tooltip=f"{s['event_cause']} | Score: {s['priority_score']:.2f} | {phase}",
             ).add_to(m)
 
-        folium_static(m, width=900, height=620)
+        components.html(m._repr_html_(), height=630)
 
         st.markdown("""
         <div class="map-legend">
@@ -691,7 +692,7 @@ with tab2:
                     </div>"""),
             ).add_to(sm)
 
-        folium_static(sm, width=950, height=620)
+        components.html(sm._repr_html_(), height=630)
 
         st.markdown("""
         <div class="map-legend">

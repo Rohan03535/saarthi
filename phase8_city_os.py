@@ -492,29 +492,22 @@ with tab1:
         snaps = cascade_df[cascade_df["timestep"] == peak_t]
         m = folium.Map(location=[12.9716, 77.5946], zoom_start=12, tiles="CartoDB dark_matter")
 
-        # Fake Mappls / ASTraM Live Traffic Heatmap
-        heat_data = [[row['latitude'], row['longitude'], row['priority_score']] 
-                     for _, row in cascade_df.dropna(subset=['latitude', 'longitude']).iterrows()]
-        
-        from folium.plugins import HeatMap
-        HeatMap(
-            heat_data, 
-            name="Live Mappls/ASTraM Hotspots",
-            radius=15, 
-            blur=20,
-            gradient={0.4: '#3b82f6', 0.65: '#f59e0b', 1.0: '#ef4444'}
-        ).add_to(m)
-
         for _, s in snaps.iterrows():
             if pd.isna(s.get("latitude")) or pd.isna(s.get("longitude")):
                 continue
             phase = s["phase"]
             color = "#ef4444" if phase == "growing" else ("#f59e0b" if phase == "shrinking" else "#22c55e")
             r_km = s.get("radius_km", 0.1)
+            # Faux-heatmap effect using multiple concentric circles
             folium.Circle(
                 location=[s["latitude"], s["longitude"]],
                 radius=max(r_km * 1000, 50),
-                color=color, fill=True, fill_color=color, fill_opacity=0.35, weight=2,
+                color=color, fill=True, fill_color=color, fill_opacity=0.15, weight=0,
+            ).add_to(m)
+            folium.Circle(
+                location=[s["latitude"], s["longitude"]],
+                radius=max(r_km * 500, 25),
+                color=color, fill=True, fill_color=color, fill_opacity=0.35, weight=1,
                 tooltip=f"{s['event_cause']} | Score: {s['priority_score']:.2f} | {phase}",
             ).add_to(m)
 
